@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>live617:ultimate_menu</id>
+	<name>Ultimate Menu</name>
+	<version>1.0 Beta</version>
+	<type>modification</type>
+
+	<install for="1.0 - 1.0.99">
+		<readme parsebbc="true">install.txt</readme>
+		<database>install.php</database>
+		<hook hook="integrate_menu_buttons" file="SUBSDIR/Subs-UltimateMenu.php" function="um_load_menu" />
+		<hook hook="integrate_admin_areas" file="SUBSDIR/Subs-UltimateMenu.php" function="um_admin_areas" />
+		<require-file name="Subs-UltimateMenu.php" destination="SUBSDIR" />
+		<require-file name="ManageUltimateMenu.php" destination="ADMINDIR" />
+		<require-file name="ManageUltimateMenu.template.php" destination="THEMEDIR" />
+		<require-file name="ManageUltimateMenu.english.php" destination="LANGUAGEDIR" />
+	</install>
+
+	<uninstall for="1.0 - 1.0.99">
+		<readme parsebbc="true">uninstall.txt</readme>
+		<database>uninstall-optional.php</database>
+		<hook reverse="true" hook="integrate_menu_buttons" file="SUBSDIR/Subs-UltimateMenu.php" function="um_load_menu" />
+		<hook reverse="true" hook="integrate_admin_areas" file="SUBSDIR/Subs-UltimateMenu.php" function="um_admin_areas" />
+		<remove-file name="SUBSDIR/Subs-UltimateMenu.php" />
+		<remove-file name="ADMINDIR/ManageUltimateMenu.php" />
+		<remove-file name="THEMEDIR/ManageUltimateMenu.template.php" />
+		<remove-file name="LANGUAGEDIR/ManageUltimateMenu.english.php" />
+	</uninstall>
+
+</package-info>
