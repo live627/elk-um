@@ -69,5 +69,3 @@ $txt['um_menu_depend_desc'] = 'You must move or remove all child and/or grandchi
 $txt['um_menu_before_child_title'] = 'Make this a child button';
 $txt['um_menu_before_child_desc'] = 'Use Child Of to make buttons the child of another!';
 $txt['um_menu_mysql'] = 'The button name you chose is already in use!';
-
-?>

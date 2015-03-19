@@ -84,6 +84,4 @@ $tables = array(
 );
 
 foreach ($tables as $table)
-	$dbtbl->db_create_table('{db_prefix}' . $table['name'], $table['columns'], $table['indexes'], [], 'update');
-
-?>
+	$dbtbl->db_create_table('{db_prefix}' . $table['name'], $table['columns'], $table['indexes'], array(), 'update');

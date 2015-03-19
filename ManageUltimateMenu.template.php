@@ -8,12 +8,15 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
+if (!defined('ELK'))
+	die('No access...');
+
 function template_main()
 {
-	global $context, $scripturl, $txt, $settings;
+	global $context, $scripturl, $txt;
 
 	echo '
-		<form action="', $scripturl, '?action=admin;area=umen;sa=savebutton" method="post" accept-charset="', $context['character_set'], '" name="postmodify" id="postmodify" class="flow_hidden">
+		<form action="', $scripturl, '?action=admin;area=umen;sa=savebutton" method="post" accept-charset="UTF-8" name="postmodify" id="postmodify" class="flow_hidden">
 			<div class="category_header">
 				<h3>
 					', $context['page_title'], '
@@ -50,28 +53,32 @@ function template_main()
 							<strong>', $txt['um_menu_button_position'], ':</strong>
 						</dt>
 						<dd>
-							<select name="position" size="10" style="width: 22%;" onchange="this.form.position.disabled = this.options[this.selectedIndex].value == \'\';">
-								<option value="after"', $context['button_data']['position'] == 'after' ? ' selected="selected"' : '', '>' . $txt['mboards_order_after'] . '...</option>
-								<option value="child_of"', $context['button_data']['position'] == 'child_of' ? ' selected="selected"' : '', '>' . $txt['mboards_order_child_of'] . '...</option>
-								<option value="before"', $context['button_data']['position'] == 'before' ? ' selected="selected"' : '', '>' . $txt['mboards_order_before'] . '...</option>
+							<select name="position" size="10" style="width:22%;height:auto;max-height:none;" onchange="this.form.position.disabled = this.options[this.selectedIndex].value == \'\';">
+								<option value="after"', $context['button_data']['position'] === 'after' ? ' selected="selected"' : '', '>' . $txt['mboards_order_after'] . '...</option>
+								<option value="child_of"', $context['button_data']['position'] === 'child_of' ? ' selected="selected"' : '', '>' . $txt['mboards_order_child_of'] . '...</option>
+								<option value="before"', $context['button_data']['position'] === 'before' ? ' selected="selected"' : '', '>' . $txt['mboards_order_before'] . '...</option>
 							</select>
-							<select name="parent" size="10" style="width: 75%;">';
+							<select name="parent" size="10" style="width:75%;;height:auto;max-height:none;">';
 
 	foreach ($context['menu_buttons'] as $buttonIndex => $buttonData)
 	{
 		echo '
-									<option value="', $buttonIndex, '"', $context['button_data']['parent'] == $buttonIndex ? ' selected="selected"' : '', '>', $buttonData['title'], '</option>';
+								<option value="', $buttonIndex, '"', $context['button_data']['parent'] == $buttonIndex ? ' selected="selected"' : '', '>', $buttonData['title'], '</option>';
 
 		if (!empty($buttonData['sub_buttons']))
 		{
 			foreach ($buttonData['sub_buttons'] as $childButton => $childButtonData)
+			{
 				echo '
-									<option value="', $childButton, '"', $context['button_data']['parent'] == $childButton ? ' selected="selected"' : '', '>-- ', $childButtonData['title'], '</option>';
+								<option value="', $childButton, '"', $context['button_data']['parent'] == $childButton ? ' selected="selected"' : '', '>&#8195;', (isBrowser('ie8') ? '&#187; ' : '&#10148; '), $childButtonData['title'], '</option>';
 
-			if (!empty($childButtonData['sub_buttons']))
-				foreach ($childButtonData['sub_buttons'] as $grandChildButton => $grandChildButtonData)
-					echo '
-									<option value="', $grandChildButton, '"', $context['button_data']['parent'] == $grandChildButton ? ' selected="selected"' : '', '>---- ', $grandChildButtonData['title'], '</option>';
+				if (!empty($childButtonData['sub_buttons']))
+				{
+					foreach ($childButtonData['sub_buttons'] as $grandChildButton => $grandChildButtonData)
+						echo '
+								<option value="', $grandChildButton, '"', $context['button_data']['parent'] == $grandChildButton ? ' selected="selected"' : '', '>&#8195;&#8195;', (isBrowser('ie8') ? '&#187; ' : '&#10148; '), $grandChildButtonData['title'], '</option>';
+				}
+			}
 		}
 	}
 
@@ -104,7 +111,7 @@ function template_main()
 						</dt>
 						<dd>
 							<fieldset id="group_perms">
-								<legend><a href="#" onclick="this.parentNode.parentNode.style.display = \'none\';document.getElementById(\'group_perms_groups_link\').style.display = \'block\'; return false;">', $txt['avatar_select_permission'], '</a></legend>';
+								<legend>', $txt['avatar_select_permission'], '</legend>';
 
 	$all_checked = true;
 
@@ -115,7 +122,7 @@ function template_main()
 								<div id="permissions_', $permission['id'], '">
 									<label for="check_group', $permission['id'], '">
 										<input type="checkbox" class="input_check" name="permissions[]" value="', $permission['id'], '" id="check_group', $permission['id'], '"', $permission['checked'] ? ' checked="checked"' : '', ' />
-										<span', ($permission['is_post_group'] ? ' class="border-bottom" title="' . $txt['mboards_groups_post_group'] . '"' : ''), '>', $permission['name'], '</span>
+										<span', ($permission['is_post_group'] ? ' title="' . $txt['mboards_groups_post_group'] . '"' : ''), '>', $permission['name'], '</span>
 									</label>
 								</div>';
 
@@ -125,13 +132,8 @@ function template_main()
 
 	echo '
 								<input type="checkbox" class="input_check" onclick="invertAll(this, this.form, \'permissions[]\');" id="check_group_all"', $all_checked ? ' checked="checked"' : '', ' />
-								<label for="check_group_all"><em>', $txt['check_all'], '</em></label><br />
+								<label for="check_group_all"><em>', $txt['check_all'], '</em></label>
 							</fieldset>
-							<a href="#" onclick="document.getElementById(\'group_perms\').style.display = \'block\'; this.style.display = \'none\'; return false;" id="group_perms_groups_link" style="display: none;">[ ', $txt['avatar_select_permission'], ' ]</a>
-							<script type="text/javascript"><!-- // --><![CDATA[
-								document.getElementById("group_perms").style.display = "none";
-								document.getElementById("group_perms_groups_link").style.display = "";
-							// ]]></script>
 						</dd>
 						<dt>
 							<strong>', $txt['um_menu_button_status'], ':</strong>
@@ -142,11 +144,9 @@ function template_main()
 						</dd>
 					</dl>
 					<input name="in" value="', $context['button_data']['id'], '" type="hidden" />
-					<div class="righttext padding">
+					<div class="submitbutton">
 						<input name="submit" value="', $txt['admin_manage_menu_submit'], '" class="button_submit" type="submit" />
 					</div>
 				</div>
 			</form>';
 }
-
-?>
