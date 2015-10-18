@@ -1,4 +1,7 @@
 # Ultimate Menu
+[![Open Issues](http://img.shields.io/github/issues/live627/elk-um.svg?style=flat)](https://github.com/live627/elk-um/issues)
+[![Current Release](https://img.shields.io/github/release/live627/elk-umsvg?style=flat)](https://github.com/live627/elk-um/releases)
+[![License](http://img.shields.io/badge/License-ISC-green.svg?style=flat)](http://opensource.org/licenses/ISC)
 ## Introduction:
 This is a direct port of my SMF mod to Elkarte.
 
