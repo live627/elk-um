@@ -11,7 +11,7 @@
 		<database>install.php</database>
 		<hook hook="integrate_menu_buttons" file="SUBSDIR/UltimateMenu.subs.php" function="um_load_menu" />
 		<hook hook="integrate_admin_areas" file="SUBSDIR/UltimateMenu.subs.php" function="um_admin_areas" />
-		<require-file name="UltimateMenu.subs.php" destination="SUBSDIR" />
+		<require-file name="UltimateMenu.integrate.php" destination="SUBSDIR" />
 		<require-file name="ManageUltimateMenu.controller.php" destination="ADMINDIR" />
 		<require-file name="ManageUltimateMenu.template.php" destination="THEMEDIR" />
 		<require-file name="ManageUltimateMenu.english.php" destination="LANGUAGEDIR/english" />
@@ -23,7 +23,7 @@
 		<database>uninstall-optional.php</database>
 		<hook reverse="true" hook="integrate_menu_buttons" file="SUBSDIR/UltimateMenu.subs.php" function="um_load_menu" />
 		<hook reverse="true" hook="integrate_admin_areas" file="SUBSDIR/UltimateMenu.subs.php" function="um_admin_areas" />
-		<remove-file name="SUBSDIR/UltimateMenu.subs.php" />
+		<remove-file name="SUBSDIR/UltimateMenu.integrate.php" />
 		<remove-file name="ADMINDIR/ManageUltimateMenu.controller.php" />
 		<remove-file name="THEMEDIR/ManageUltimateMenu.template.php" />
 		<remove-file name="LANGUAGEDIR/english/ManageUltimateMenu.english.php" />
