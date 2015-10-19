@@ -8,7 +8,7 @@ John "live627" Rayes
 [/list]
 
 [color=#c63][size=11pt][b]License[/b][/size][/color][hr][list type=none]
-[li][url=http://opensource.org/licenses/MIT]MIT[/url][/li]
+[li][url=http://opensource.org/licenses/ISC]ISC[/url][/li]
 [/list]
 
 All right? You may now proceed. Please, enjoy using this addon!
