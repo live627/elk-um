@@ -5,7 +5,7 @@
  * @version 1.0
  * @author John Rayes <live627@gmail.com>
  * @copyright Copyright (c) 2014, John Rayes
- * @license http://opensource.org/licenses/ISC ISC
+ * @license http://opensource.org/licenses/MIT MIT
  */
 
 // If we have found SSI.php and we are outside of ElkArte, then we are running standalone.
