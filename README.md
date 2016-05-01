@@ -1,7 +1,9 @@
 # Ultimate Menu
-[![Open Issues](http://img.shields.io/github/issues/live627/elk-um.svg?style=flat)](https://github.com/live627/elk-um/issues)
-[![Current Release](https://img.shields.io/github/release/live627/elk-umsvg?style=flat)](https://github.com/live627/elk-um/releases)
-[![License](http://img.shields.io/badge/License-ISC-green.svg?style=flat)](http://opensource.org/licenses/ISC)
+[![MIT license](http://img.shields.io/badge/license-MIT-009999.svg)](http://opensource.org/licenses/MIT)
+[![GitHub issues](https://img.shields.io/github/issues/live627/elk-um.svg)](https://github.com/live627/elk-um/issues)
+[![Latest Version](https://img.shields.io/github/release/live627/elk-um.svg)](https://github.com/live627/elk-um/releases)
+[![Total Downloads](https://img.shields.io/github/downloads/live627/elk-um/total.svg)](https://github.com/live627/elk-um/releases)
+[![Support](https://supporter.60devs.com/api/b/axlsj1o8o0amepfrr5eqlcjza)](https://supporter.60devs.com/give/axlsj1o8o0amepfrr5eqlcjza)
 ## Introduction:
 This is a direct port of my SMF mod to Elkarte.
 
