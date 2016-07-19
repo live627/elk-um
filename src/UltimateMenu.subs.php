@@ -47,7 +47,7 @@ function um_load_menu(&$menu_buttons)
             'show' => (allowedTo('admin_forum') || count(array_intersect($user_info['groups'], explode(',', $row['permissions']))) >= 1) && $row['status'] === 'active',
         );
 
-        // Loop on the menu, find the item that we are supposed to add the button afer, before, child of
+        // Loop on the menu, find the item that we are supposed to add the button after, before, child of
         foreach ($menu_buttons as $area => &$info) {
             if ($area == $row['parent']) {
                 if ($row['position'] === 'before' || $row['position'] === 'after') {

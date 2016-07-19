@@ -183,7 +183,7 @@ class Ultimate_Menu_Controller extends Action_Controller
                         'function' => create_function('$rowData', '
                             global $txt;
 
-                            // Dont show the stub name if we can find the parent name
+                            // Don\'t show the stub name if we can find the parent name
                             $check = common_um_name($rowData[\'parent\']);
                             $name = !empty($check) ? $check : $rowData[\'parent\'];
 
