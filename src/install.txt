@@ -1,4 +1,4 @@
-[color=#c63][size=11pt][b]Ultimate Menu[/b] 1.0[/size][/color][hr]
+[color=#c63][size=11pt][b]Ultimate Menu[/b] 1.1[/size][/color][hr]
 John "live627" Rayes
 
 [color=#c63][size=11pt][b]Installation notes[/b][/size][/color][hr][list]
