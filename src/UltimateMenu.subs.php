@@ -23,7 +23,8 @@ function um_load_menu(&$menu_buttons)
 	global $user_info, $scripturl, $modSettings;
 
 	// Make damn sure we ALWAYS load last. Priority: 100!
-	if (end(explode(',', $modSettings['integrate_menu_buttons'])) != 'um_load_menu')
+	$hooks = explode(',', $modSettings['integrate_menu_buttons']);
+	if (end($hooks) != 'um_load_menu')
 	{
 		remove_integration_function('integrate_menu_buttons', 'um_load_menu');
 		add_integration_function('integrate_menu_buttons', 'um_load_menu');
