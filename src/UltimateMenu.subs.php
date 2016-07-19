@@ -15,8 +15,7 @@ if (!defined('ELK'))
  * Loads the um menu into the site menu
  * Ensures um is the last menu hook to execute menu changes
  *
- * @param type $menu_buttons
- * @return type
+ * @param array $menu_buttons
  */
 function um_load_menu(&$menu_buttons)
 {
