@@ -331,7 +331,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 			if (empty($post_errors))
 			{
 				// I see you made it to the final stage, my young padawan.
-				save_um_name($menu_entry);
+				save_um_name(filter_var_array($menu_entry, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
 				// Built the new menu and stash it away in settings for quick access
 				rebuild_um_menu();
