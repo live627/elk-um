@@ -16,6 +16,7 @@
         <require-file name="ManageUltimateMenu.template.php" destination="THEMEDIR" />
         <require-file name="ManageUltimateMenu.english.php" destination="LANGUAGEDIR/english" />
         <require-file name="umen.png" destination="IMAGESDIR/admin" />
+        <redirect url="?action=admin;area=umen" />
     </install>
 
     <uninstall for="1.0.4 - 1.0.99">
