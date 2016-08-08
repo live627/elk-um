@@ -152,7 +152,7 @@ class Ultimate_Menu_Controller extends Action_Controller
                         'value' => $txt['um_menu_button_name'],
                     ),
                     'data' => array(
-                        'db_htmlsafe' => 'name',
+                        'db' => 'name',
                     ),
                     'sort' => array(
                         'default' => 'men.name',
@@ -200,7 +200,7 @@ class Ultimate_Menu_Controller extends Action_Controller
                         'value' => $txt['um_menu_button_link'],
                     ),
                     'data' => array(
-                        'db_htmlsafe' => 'link',
+                        'db' => 'link',
                     ),
                     'sort' => array(
                         'default' => 'men.link',
