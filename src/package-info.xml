@@ -1,12 +1,12 @@
-<?xml version="1.0"?>
+<?xml version="1.1.1"?>
 <!DOCTYPE package-info SYSTEM "http://www.elkarte.net/site/package-info">
 <package-info xmlns="http://www.elkarte.net/site/package-info" xmlns:elk="http://www.elkarte.net/">
     <id>live617:ultimate_menu</id>
     <name>Ultimate Menu</name>
-    <version>1.1</version>
+    <version>1.1.1</version>
     <type>modification</type>
 
-    <install for="1.1.4 - 1.1.99">
+    <install for="1.0.4 - 1.0.99">
         <readme parsebbc="true">install.txt</readme>
         <database>install.php</database>
         <hook hook="integrate_menu_buttons" file="SUBSDIR/UltimateMenu.subs.php" function="um_load_menu" />
@@ -18,7 +18,7 @@
         <require-file name="umen.png" destination="IMAGESDIR/admin" />
     </install>
 
-    <uninstall for="1.1.4 - 1.1.99">
+    <uninstall for="1.0.4 - 1.0.99">
         <readme parsebbc="true">uninstall.txt</readme>
         <database>uninstall-optional.php</database>
         <hook reverse="true" hook="integrate_menu_buttons" file="SUBSDIR/UltimateMenu.subs.php" function="um_load_menu" />

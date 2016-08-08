@@ -2,7 +2,7 @@
 
 /**
  * @package Ultimate Menu mod
- * @version 1.1
+ * @version 1.1.1
  * @author John Rayes <live627@gmail.com>
  * @copyright Copyright (c) 2014, John Rayes
  * @license http://opensource.org/licenses/MIT MIT
@@ -87,7 +87,6 @@ function um_load_menu(&$menu_buttons)
  * @param null $permission
  * @param null $board_id
  * @return array all the membergroups filtered according to the parameters; empty array if something went wrong.
- * @since 1.1
  */
 function list_groups($checked, $disallowed = '', $inherited = false, $permission = null, $board_id = null)
 {

@@ -2,7 +2,7 @@
 
 /**
  * @package Ultimate Menu mod
- * @version 1.1
+ * @version 1.1.1
  * @author John Rayes <live627@gmail.com>
  * @copyright Copyright (c) 2014, John Rayes
  * @license http://opensource.org/licenses/MIT MIT
@@ -353,8 +353,6 @@ class Ultimate_Menu_Controller extends Action_Controller
 
     /**
      * Prepares theme context for the template.
-     *
-     * @since 1.1
      */
     public function action_PrepareContext()
     {
