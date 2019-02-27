@@ -163,12 +163,10 @@ class Ultimate_Menu_Controller extends Action_Controller
                     'header' => array(
                         'value' => $txt['um_menu_button_type'],
                     ),
-                    'data' => array(
-                        'function' => create_function('$rowData', '
-                            global $txt;
-
-                            return $txt[$rowData[\'type\'] . \'_link\'];
-                        '),
+                    'data' => array (
+                        'function' => function ($rowData ) use ( $txt ) {
+                            return $txt[$rowData['type'] . '_link'];
+                        }
                     ),
                     'sort' => array(
                         'default' => 'men.type',
@@ -179,16 +177,14 @@ class Ultimate_Menu_Controller extends Action_Controller
                     'header' => array(
                         'value' => $txt['um_menu_button_position'],
                     ),
-                    'data' => array(
-                        'function' => create_function('$rowData', '
-                            global $txt;
+                    'data' => array (
+                        'function' => function ($rowData ) use ( $txt ) {
+                                     // Don\'t show the stub name if we can find the parent name
+                                     $check = common_um_name($rowData['parent']);
+                                     $name = !empty($check) ? $check : $rowData['parent'];
 
-                            // Don\'t show the stub name if we can find the parent name
-                            $check = common_um_name($rowData[\'parent\']);
-                            $name = !empty($check) ? $check : $rowData[\'parent\'];
-
-                            return $txt[\'mboards_order_\' . $rowData[\'position\']] . \' \' . ucwords($name);
-                        '),
+                                     return $txt['mboards_order_' . $rowData['position']] . ' ' . ucwords($name);
+                        }
                     ),
                     'sort' => array(
                         'default' => 'men.position',
@@ -212,13 +208,12 @@ class Ultimate_Menu_Controller extends Action_Controller
                         'value' => $txt['um_menu_button_active'],
                         'class' => 'centertext',
                     ),
-                    'data' => array(
-                        'function' => create_function('$rowData', '
-                            global $txt;
+                    'data' => array (
+                        'function' =>  function ($rowData ) use ( $txt ) {
 
-                            $isChecked = $rowData[\'status\'] === \'inactive\' ? \'\' : \' checked="checked"\';
-                            return sprintf(\'<span>%3$s</span>&nbsp;<input type="checkbox" name="status[%1$s]" id="status_%1$s" value="%1$s"%2$s />\', $rowData[\'id_button\'], $isChecked, $txt[$rowData[\'status\']], $rowData[\'status\']);
-                        '),
+                        $isChecked = $rowData['status'] === 'inactive' ? '' : ' checked="checked"';
+                        return sprintf('<span>%3$s</span>&nbsp;<input type="checkbox" name="status[%1$s]" id="status_%1$s" value="%1$s"%2$s />', $rowData['id_button'], $isChecked, $txt[$rowData['status']], $rowData['status']);
+                        },
                         'class' => 'centertext',
                     ),
                     'sort' => array(
