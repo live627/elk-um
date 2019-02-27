@@ -37,8 +37,7 @@ function um_load_menu(&$menu_buttons)
         return $menu_buttons;
 
     // Insert the items in to the site menu as defined in the um ACP
-    reset($db_buttons);
-    while (list(, $row) = each($db_buttons)) {
+    foreach ( $db_buttons as $id => $row) { 
         // UM menu button basics
         $temp_menu = array(
             'title' => $row['name'],
