@@ -30,17 +30,16 @@ function um_load_menu(&$menu_buttons)
 		add_integration_function('integrate_menu_buttons', 'um_load_menu');
 	}
 
-	// Load the um items for inclusion
-	$db_buttons = @unserialize($modSettings['um_menu']);
+	$num_buttons = isset($modSettings['um_count'])
+		? $modSettings['um_count']
+		: 0;
 
-	// No um items, easy
-	if (empty($db_buttons))
-		return $menu_buttons;
-
-	// Insert the items in to the site menu as defined in the um ACP
-	foreach ($db_buttons as $id => $row)
+	for ($i = 1; $i <= $num_buttons; $i++)
 	{
-		$key = 'um_button_' . $id;
+		$key = 'um_button_' . $i;
+		if (!isset($modSettings[$key]))
+			break;
+		$row = json_decode($modSettings[$key], true);
 		$temp_menu = array(
 			'title' => $row['name'],
 			'href' => ($row['type'] === 'forum' ? $scripturl . '?' : '') . $row['link'],
@@ -308,13 +307,12 @@ function rebuild_um_menu()
 	);
 	$db_buttons = array();
 	while ($row = $db->fetch_assoc($request))
-		$db_buttons[$row['id_button']] = $row;
+		$db_buttons['um_button_' . $row['id_button']] = json_encode($row);
 	$db->free_result($request);
-
 	updateSettings(
 		array(
-			'um_menu' => serialize($db_buttons),
-		)
+			'um_count' => count($db_buttons),
+		) + $db_buttons
 	);
 }
 

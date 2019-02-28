@@ -18,14 +18,20 @@ elseif (!defined('ELK'))
 
 if (isset($modSettings['um_menu']))
 	unset($modSettings['um_menu']);
+if (isset($modSettings['um_count']))
+	unset($modSettings['um_count']);
 
 $db = database();
 $db->query(
 	'',
 	'
-    DELETE FROM {db_prefix}settings
-    WHERE variable = {string:setting}',
+	DELETE FROM {db_prefix}settings
+	WHERE variable = {string:setting0}
+		OR variable = {string:setting1}
+		OR variable LIKE {string:setting2}',
 	array(
-		'setting' => 'um_menu',
+		'setting0' => 'um_menu',
+		'setting1' => 'um_count',
+		'setting2' => 'um_button%',
 	)
 );
