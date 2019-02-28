@@ -40,7 +40,7 @@ function um_load_menu(&$menu_buttons)
 	// Insert the items in to the site menu as defined in the um ACP
 	foreach ($db_buttons as $id => $row)
 	{
-		// UM menu button basics
+		$key = 'um_button_' . $id;
 		$temp_menu = array(
 			'title' => $row['name'],
 			'href' => ($row['type'] === 'forum' ? $scripturl . '?' : '') . $row['link'],
@@ -62,7 +62,7 @@ function um_load_menu(&$menu_buttons)
 						$menu_buttons = elk_array_insert(
 							$menu_buttons,
 							$row['parent'],
-							array($row['slug'] => $temp_menu),
+							array($key => $temp_menu),
 							$row['position'],
 							true,
 							true
@@ -73,7 +73,7 @@ function um_load_menu(&$menu_buttons)
 
 				if ($row['position'] === 'child_of')
 				{
-					$info['sub_buttons'][$row['slug']] = $temp_menu;
+					$info['sub_buttons'][$key] = $temp_menu;
 					break;
 				}
 			}
@@ -85,7 +85,7 @@ function um_load_menu(&$menu_buttons)
 					$info['sub_buttons'] = elk_array_insert(
 						$info['sub_buttons'],
 						$row['parent'],
-						array($row['slug'] => $temp_menu),
+						array($key => $temp_menu),
 						$row['position'],
 						true,
 						true
@@ -95,7 +95,7 @@ function um_load_menu(&$menu_buttons)
 
 				if ($row['position'] === 'child_of')
 				{
-					$info['sub_buttons'][$row['parent']]['sub_buttons'][$row['slug']] = $temp_menu;
+					$info['sub_buttons'][$row['parent']]['sub_buttons'][$key] = $temp_menu;
 					break;
 				}
 			}
