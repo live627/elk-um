@@ -34,9 +34,9 @@ class Ultimate_Menu_Controller extends Action_Controller
 
 		// But not much tonight
 		$subActions = array(
-			'manmenu' => array($this, 'action_ManageUltimateMenu', 'permission' => 'admin_forum'),
-			'addbutton' => array($this, 'action_PrepareContext', 'permission' => 'admin_forum'),
-			'savebutton' => array($this, 'action_SaveButton', 'permission' => 'admin_forum'),
+			'manmenu' => array($this, 'action_manmenu', 'permission' => 'admin_forum'),
+			'addbutton' => array($this, 'action_addbutton', 'permission' => 'admin_forum'),
+			'savebutton' => array($this, 'action_savebutton', 'permission' => 'admin_forum'),
 		);
 
 		// Your activity will end here if you don't have permission.
@@ -73,7 +73,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 		$action->dispatch($subAction);
 	}
 
-	public function action_ManageUltimateMenu()
+	public function action_manmenu()
 	{
 		global $context, $txt, $scripturl;
 
@@ -272,7 +272,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 		$context['default_list'] = 'menu_list';
 	}
 
-	public function action_SaveButton()
+	public function action_savebutton()
 	{
 		global $context, $txt;
 
@@ -352,7 +352,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 	/**
 	 * Prepares theme context for the template.
 	 */
-	public function action_PrepareContext()
+	public function action_addbutton()
 	{
 		global $context, $txt;
 
