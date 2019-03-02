@@ -187,7 +187,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 						'value' => $txt['um_menu_button_link'],
 					),
 					'data' => array(
-						'db' => 'link',
+						'db_htmlsafe' => 'link',
 					),
 					'sort' => array(
 						'default' => 'men.link',
@@ -276,7 +276,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 	{
 		global $context, $txt;
 
-		if (isset($_REQUEST['submit']))
+		if (isset($_POST['submit']))
 		{
 			$post_errors = array();
 			$required_fields = array(
@@ -286,26 +286,24 @@ class Ultimate_Menu_Controller extends Action_Controller
 			);
 
 			// Make sure we grab all of the content
-			$menu_entry = array();
-			$menu_entry['id'] = isset($_REQUEST['in']) ? (int) $_REQUEST['in'] : 0;
-			$menu_entry['name'] = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
-			$menu_entry['position'] = isset($_REQUEST['position']) ? $_REQUEST['position'] : 'before';
-			$menu_entry['type'] = isset($_REQUEST['type']) ? $_REQUEST['type'] : 'forum';
-			$menu_entry['link'] = isset($_REQUEST['link']) ? $_REQUEST['link'] : '';
-			$menu_entry['permissions'] = isset($_REQUEST['permissions']) ? implode(
-				',',
-				array_intersect($_REQUEST['permissions'], array_keys(list_groups(-3, 1)))
-			) : '1';
-			$menu_entry['status'] = isset($_REQUEST['status']) ? $_REQUEST['status'] : 'active';
-			$menu_entry['parent'] = isset($_REQUEST['parent']) ? $_REQUEST['parent'] : 'home';
-			$menu_entry['target'] = isset($_REQUEST['target']) ? $_REQUEST['target'] : '_self';
+			$menu_entry = array(
+				'id' => filter_input(INPUT_GET, 'in', FILTER_SANITIZE_NUMBER_INT),
+				'name' => filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+				'position' => isset($_POST['position']) ? $_POST['position'] : 'before',
+				'type' => isset($_POST['type']) ? $_POST['type'] : 'forum',
+				'link' => isset($_POST['link']) ? $_POST['link'] : '',
+				'permissions' => isset($_POST['permissions'])
+					? implode(',', array_intersect($_POST['permissions'], array_keys(list_groups(-3, 1))))
+					: '1',
+				'status' => isset($_POST['status']) ? $_POST['status'] : 'active',
+				'parent' => isset($_POST['parent']) ? $_POST['parent'] : 'home',
+				'target' => isset($_POST['target']) ? $_POST['target'] : '_self',
+			);
 
 			// These fields are required!
 			foreach ($required_fields as $required_field)
-			{
-				if ($_POST[$required_field] == '')
+				if (empty($menu_entry[$required_field]))
 					$post_errors[$required_field] = 'um_menu_empty_' . $required_field;
-			}
 
 			// Stop making numeric names!
 			if (is_numeric($menu_entry['name']))
