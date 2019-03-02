@@ -11,11 +11,3 @@ This is a tool for configuring the main menu within Elkarte, allowing custom but
 
 ## Known issues:
 -  Grandchild buttons cannot be added using 'before' or 'after'; not sure how to fix this
-
-### Future plans:
--  Complete rewrite using objects
--  Follow PSR-2 and PSR-4
--  Use generators (PHP 5.5+)
--  Use closures (PHP 5.3+)
--  Use late static bindings (PHP 5.3+)
--  any suggestion that would come up in the topic
