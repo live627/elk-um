@@ -202,15 +202,10 @@ class Ultimate_Menu_Controller extends Action_Controller
 					'data' => array(
 						'function' => function ($rowData) use ($txt)
 						{
-
-							$isChecked = $rowData['status'] === 'inactive' ? '' : ' checked="checked"';
-
 							return sprintf(
-								'<span>%3$s</span>&nbsp;<input type="checkbox" name="status[%1$s]" id="status_%1$s" value="%1$s"%2$s />',
+								'<input type="checkbox" name="status[%1$s]" id="status_%1$s" value="%1$s"%2$s />',
 								$rowData['id_button'],
-								$isChecked,
-								$txt[$rowData['status']],
-								$rowData['status']
+								$rowData['status'] == 'inactive' ? '' : ' checked="checked"'
 							);
 						},
 						'class' => 'centertext',
@@ -226,12 +221,15 @@ class Ultimate_Menu_Controller extends Action_Controller
 						'class' => 'centertext',
 					),
 					'data' => array(
-						'sprintf' => array(
-							'format' => '<a href="' . $scripturl . '?action=admin;area=umen;sa=addbutton;edit;in=%1$d">' . $txt['modify'] . '</a>',
-							'params' => array(
-								'id_button' => false,
-							),
-						),
+						'function' => function ($rowData) use ($txt)
+						{
+							return sprintf(
+								'<a href="%s?action=admin;area=umen;sa=addbutton;edit;in=%d">%s</a>',
+								$scripturl,
+								$rowData['id_button'],
+								$txt['modify']
+							);
+						},
 						'class' => 'centertext',
 					),
 				),
@@ -242,7 +240,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 					),
 					'data' => array(
 						'sprintf' => array(
-							'format' => '<input type="checkbox" name="remove[]" value="%1$d" class="input_check" />',
+							'format' => '<input type="checkbox" name="remove[]" value="%d" class="input_check" />',
 							'params' => array(
 								'id_button' => false,
 							),
