@@ -46,6 +46,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 		require_once(SUBSDIR . '/UltimateMenu.subs.php');
 
 		loadTemplate('ManageUltimateMenu');
+		$um = new UltimateMenu;
 
 		// Set the page title
 		$context['page_title'] = $txt['admin_menu_title'];
@@ -80,13 +81,11 @@ class Ultimate_Menu_Controller extends Action_Controller
 		if (!empty($_POST['removeAll']))
 		{
 			checkSession();
-
-			deleteall_um_pages();
-
-			rebuild_um_menu();
-
+			$um->deleteallButtons();
+			$um->rebuildMenu();
 			redirectexit('action=admin;area=umen');
-		} // User pressed the 'remove selection button'.
+		}
+		// User pressed the 'remove selection button'.
 		elseif (!empty($_POST['removeButtons']) && !empty($_POST['remove']) && is_array($_POST['remove']))
 		{
 			checkSession();
@@ -96,27 +95,27 @@ class Ultimate_Menu_Controller extends Action_Controller
 				$_POST['remove'][(int) $index] = (int) $page_id;
 
 			// Delete the page(s)!
-			delete_um_page($_POST['remove']);
-
-			rebuild_um_menu();
-
+			$um->deleteButton($_POST['remove']);
+			$um->rebuildMenu();
 			redirectexit('action=admin;area=umen');
-		} // Changing the status?
+		}
+		// Changing the status?
 		elseif (isset($_POST['save']))
 		{
 			checkSession();
 
-			foreach (total_getMenu() as $item)
+			foreach ($um->total_getMenu() as $item)
 			{
 				$status = !empty($_POST['status'][$item['id_button']]) ? 'active' : 'inactive';
 				if ($status != $item['status'])
-					update_um_page_status($item['id_button'], $status);
+					$um->updateButton_status($item['id_button'], $status);
 			}
 
-			rebuild_um_menu();
+			$um->rebuildMenu();
 
 			redirectexit('action=admin;area=umen');
-		} // New item?
+		}
+		// New item?
 		elseif (isset($_POST['new']))
 			redirectexit('action=admin;area=umen;sa=addbutton');
 
@@ -130,10 +129,10 @@ class Ultimate_Menu_Controller extends Action_Controller
 			'default_sort_col' => 'id_button',
 			'default_sort_dir' => 'desc',
 			'get_items' => array(
-				'function' => array($this, 'list_getMenu'),
+				'function' => array($um, 'list_getMenu'),
 			),
 			'get_count' => array(
-				'function' => array($this, 'list_getNumButtons'),
+				'function' => array($um, 'list_getNumButtons'),
 			),
 			'no_items_label' => $txt['um_menu_no_buttons'],
 			'columns' => array(
@@ -329,17 +328,15 @@ class Ultimate_Menu_Controller extends Action_Controller
 				$post_errors['name'] = 'um_menu_numeric';
 
 			// Let's make sure you're not trying to make a name that's already taken.
-			$check = check_um_name($menu_entry['id'], $menu_entry['name']);
+			$check = $um->checkButton($menu_entry['id'], $menu_entry['name']);
 			if ($check > 0)
 				$post_errors['name'] = 'um_menu_mysql';
 
+			// I see you made it to the final stage, my young padawan.
 			if (empty($post_errors))
 			{
-				// I see you made it to the final stage, my young padawan.
-				save_um_name(filter_var_array($menu_entry, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-
-				// Built the new menu and stash it away in settings for quick access
-				rebuild_um_menu();
+				$um->saveButton($menu_entry);
+				$um->rebuildMenu();
 
 				// Before we leave, we must clear the cache. See, ElkArte
 				// caches its menu at level 2 or higher.
@@ -377,7 +374,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 
 		if (isset($_GET['in']))
 		{
-			$row = fetch_um_page($_GET['in']);
+			$row = $um->fetchButton($_GET['in']);
 
 			$context['button_data'] = array(
 				'id' => (int) $_GET['in'],
@@ -385,7 +382,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 				'target' => $row['target'],
 				'type' => $row['type'],
 				'position' => $row['position'],
-				'permissions' => list_groups($row['permissions'], 1),
+				'permissions' => $um->list_groups($row['permissions'], 1),
 				'link' => $row['link'],
 				'status' => $row['status'],
 				'parent' => $row['parent'],
@@ -401,22 +398,12 @@ class Ultimate_Menu_Controller extends Action_Controller
 				'type' => 'forum',
 				'position' => 'before',
 				'status' => '1',
-				'permissions' => list_groups('-3', 1),
+				'permissions' => $um->list_groups('-3', 1),
 				'parent' => 'home',
 				'id' => 0,
 			);
 
 			$context['page_title'] = $txt['um_menu_add_title'];
 		}
-	}
-
-	public function list_getMenu($start, $items_per_page, $sort)
-	{
-		return list_um_getMenu($start, $items_per_page, $sort);
-	}
-
-	public function list_getNumButtons()
-	{
-		return list_um_getNumButtons();
 	}
 }
