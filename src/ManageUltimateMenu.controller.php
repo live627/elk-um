@@ -119,9 +119,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 		elseif (isset($_POST['new']))
 			redirectexit('action=admin;area=umen;sa=addbutton');
 
-		loadLanguage('ManageBoards');
-
-		// Our options for our list.
+		$button_names = $um->getButtonNames();
 		$listOptions = array(
 			'id' => 'menu_list',
 			'items_per_page' => 20,
@@ -155,7 +153,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 					'data' => array(
 						'function' => function ($rowData) use ($txt)
 						{
-							return $txt[$rowData['type'] . '_link'];
+							return $txt['um_menu_' . $rowData['type'] . '_link'];
 						},
 					),
 					'sort' => array(
@@ -168,13 +166,15 @@ class Ultimate_Menu_Controller extends Action_Controller
 						'value' => $txt['um_menu_button_position'],
 					),
 					'data' => array(
-						'function' => function ($rowData) use ($txt)
+						'function' => function ($rowData) use ($txt, $button_names)
 						{
-							// Don\'t show the stub name if we can find the parent name
-							$check = common_um_name($rowData['parent']);
-							$name = !empty($check) ? $check : $rowData['parent'];
-
-							return $txt['mboards_order_' . $rowData['position']] . ' ' . ucwords($name);
+							return sprintf(
+								'%s %s',
+								$txt['um_menu_' . $rowData['position']],
+								isset($button_names[$rowData['parent']])
+									? $button_names[$rowData['parent']]
+									: ucwords($rowData['parent'])
+							);
 						},
 					),
 					'sort' => array(
