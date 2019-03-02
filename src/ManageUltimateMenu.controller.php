@@ -256,10 +256,10 @@ class Ultimate_Menu_Controller extends Action_Controller
 				array(
 					'position' => 'below_table_data',
 					'value' => '
-                        <input type="submit" name="removeButtons" value="' . $txt['um_menu_remove_selected'] . '" onclick="return confirm(\'' . $txt['um_menu_remove_confirm'] . '\');" class="button_submit" />
-                        <input type="submit" name="removeAll" value="' . $txt['um_menu_remove_all'] . '" onclick="return confirm(\'' . $txt['um_menu_remove_all_confirm'] . '\');" class="button_submit" />
-                        <input type="submit" name="new" value="' . $txt['um_admin_add_button'] . '" class="button_submit" />
-                        <input type="submit" name="save" value="' . $txt['save'] . '" class="button_submit" />',
+						<input type="submit" name="removeButtons" value="' . $txt['um_menu_remove_selected'] . '" onclick="return confirm(\'' . $txt['um_menu_remove_confirm'] . '\');" class="button_submit" />
+						<input type="submit" name="removeAll" value="' . $txt['um_menu_remove_all'] . '" onclick="return confirm(\'' . $txt['um_menu_remove_all_confirm'] . '\');" class="button_submit" />
+						<input type="submit" name="new" value="' . $txt['um_admin_add_button'] . '" class="button_submit" />
+						<input type="submit" name="save" value="' . $txt['save'] . '" class="button_submit" />',
 					'class' => 'righttext',
 				),
 			),
@@ -328,8 +328,11 @@ class Ultimate_Menu_Controller extends Action_Controller
 			}
 			else
 			{
+				$context['page_title'] = $txt['um_menu_edit_title'];
 				$context['post_error'] = $post_errors;
-				$context['error_title'] = empty($menu_entry['id']) ? 'um_menu_errors_create' : 'um_menu_errors_modify';
+				$context['error_title'] = empty($menu_entry['id'])
+					? 'um_menu_errors_create'
+					: 'um_menu_errors_modify';
 				$context['button_data'] = array(
 					'name' => $menu_entry['name'],
 					'type' => $menu_entry['type'],
@@ -341,8 +344,6 @@ class Ultimate_Menu_Controller extends Action_Controller
 					'status' => $menu_entry['status'],
 					'id' => $menu_entry['id'],
 				);
-
-				$context['page_title'] = $txt['um_menu_edit_title'];
 			}
 		}
 	}
