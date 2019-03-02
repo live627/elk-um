@@ -126,7 +126,7 @@ class Ultimate_Menu_Controller extends Action_Controller
 			'id' => 'menu_list',
 			'items_per_page' => 20,
 			'base_href' => $scripturl . '?action=admin;area=umen;sa=manmenu',
-			'default_sort_col' => 'id_button',
+			'default_sort_col' => 'name',
 			'default_sort_dir' => 'desc',
 			'get_items' => array(
 				'function' => array($um, 'list_getMenu'),
@@ -136,20 +136,6 @@ class Ultimate_Menu_Controller extends Action_Controller
 			),
 			'no_items_label' => $txt['um_menu_no_buttons'],
 			'columns' => array(
-				'id_button' => array(
-					'header' => array(
-						'value' => $txt['um_menu_button_id'],
-						'class' => 'centertext',
-					),
-					'data' => array(
-						'db' => 'id_button',
-						'class' => 'centertext',
-					),
-					'sort' => array(
-						'default' => 'men.id_button',
-						'reverse' => 'men.id_button DESC',
-					),
-				),
 				'name' => array(
 					'header' => array(
 						'value' => $txt['um_menu_button_name'],
