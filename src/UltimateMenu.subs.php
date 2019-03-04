@@ -226,7 +226,7 @@ class UltimateMenu
 			'file' => 'ManageUltimateMenu.controller.php',
 			'controller' => 'UltimateMenuController',
 			'permission' => array('admin_forum'),
-			'function' => 'action_menu',
+			'function' => 'action_index',
 			'icon' => 'umen.png',
 			'subsections' => array(
 				'manmenu' => array($txt['um_admin_manage_menu'], ''),

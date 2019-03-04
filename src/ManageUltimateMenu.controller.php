@@ -11,28 +11,14 @@
 if (!defined('ELK'))
 	die('No access...');
 
-class Ultimate_Menu_Controller extends Action_Controller
+class UltimateMenuController extends Action_Controller
 {
-	/**
-	 * Default action method, if a specific method wasn't
-	 * directly called. Simply forwards to menu.
-	 */
-	public function action_index()
-	{
-		$this->action_menu();
-	}
+	private $um;
 
-	/**
-	 * Action dispatcher for this class
-	 */
-	public function action_menu()
+	public function action_index()
 	{
 		global $context, $txt;
 
-		// Actions baby
-		require_once(SUBSDIR . '/Action.class.php');
-
-		// But not much tonight
 		$subActions = array(
 			'manmenu' => array($this, 'action_manmenu', 'permission' => 'admin_forum'),
 			'addbutton' => array($this, 'action_addbutton', 'permission' => 'admin_forum'),
