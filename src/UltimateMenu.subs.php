@@ -66,8 +66,8 @@ class UltimateMenu
 				break;
 			$row = json_decode($modSettings[$key], true);
 			$temp_menu = array(
-				'title' => $row['name'],
-				'href' => ($row['type'] === 'forum' ? $scripturl . '?' : '') . $row['link'],
+				'title' => htmlspecialchars($row['name'], ENT_COMPAT, 'UTF-8'),
+				'href' => ($row['type'] === 'forum' ? $scripturl . '?' : '') . rawurlencode($row['link']),
 				'target' => $row['target'],
 				'show' => (allowedTo('admin_forum') || count(array_intersect($user_info['groups'], explode(',', $row['permissions']))) >= 1) && $row['status'] === 'active',
 			);
@@ -390,7 +390,7 @@ class UltimateMenu
 				AND id_button != {int:id}',
 			array(
 				'name' => $name,
-				'id' => $id,
+				'id' => $id ?: 0,
 			)
 		);
 		$check = $this->db->num_rows($request);
@@ -424,7 +424,7 @@ class UltimateMenu
 					'position' => $menu_entry['position'],
 					'link' => $menu_entry['link'],
 					'status' => $menu_entry['status'],
-					'permissions' => $menu_entry['permissions'],
+					'permissions' => implode(',', array_filter($menu_entry['permissions'], 'strlen')),
 					'parent' => $menu_entry['parent'],
 				)
 			);
@@ -451,7 +451,7 @@ class UltimateMenu
 					$menu_entry['position'],
 					$menu_entry['link'],
 					$menu_entry['status'],
-					$menu_entry['permissions'],
+					implode(',', array_filter($menu_entry['permissions'], 'strlen')),
 					$menu_entry['parent'],
 				),
 				array('id_button')
