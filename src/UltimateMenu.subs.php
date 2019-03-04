@@ -11,47 +11,47 @@
 class UltimateMenu
 {
 	/**
-     * The database object
-     * @var database
-     */
-    protected $db = null;
+	 * The database object
+	 * @var database
+	 */
+	protected $db = null;
 
-    public function __construct()
-    {
-        $this->db = database();
-    }
+	public function __construct()
+	{
+		$this->db = database();
+	}
 
-    /**
-     * Register hooks to the system
-     *
-     * @return array
-     */
-    public static function registerAll()
-    {
+	/**
+	 * Register hooks to the system
+	 *
+	 * @return array
+	 */
+	public static function registerAll()
+	{
 		global $modSettings;
 
 		// Make damn sure we ALWAYS load last. Priority: 100!
-		$hooks = explode(',', $modSettings['integrate_menu_buttons']);
+		$hooks = explode(',', $modSettings['integrate_pre_load']);
 		$hook = end($hooks);
-		if (strpos($hook, '') === false)
+		if (strpos($hook, self::class.'::registerAll') === false)
 		{
-			remove_integration_function('integrate_menu_buttons', self::class.'::registerAll', 'SUBSDIR/UltimateMenu.subs.php');
-			add_integration_function('integrate_menu_buttons', self::class.'::registerAll', 'SUBSDIR/UltimateMenu.subs.php');
+			remove_integration_function('integrate_pre_load', self::class.'::registerAll', 'SUBSDIR/UltimateMenu.subs.php');
+			add_integration_function('integrate_pre_load', self::class.'::registerAll', 'SUBSDIR/UltimateMenu.subs.php');
 		}
-        $hook_functions = [
-            ['integrate_menu_buttons', self::class.'::load_menu'],
-            ['integrate_admin_areas', self::class.'::addAdminArea'],
-        ];
-        foreach ($hook_functions as list($hook, $function))
-            add_integration_function($hook, $function, '', false);
-    }
+		$hook_functions = [
+			['integrate_menu_buttons', self::class.'::loadMenu'],
+			['integrate_admin_areas', self::class.'::addAdminArea'],
+		];
+		foreach ($hook_functions as list ($hook, $function))
+			add_integration_function($hook, $function, '', false);
+	}
 
 	/**
 	 * Loads the um menu into the site menu
 	 *
 	 * @param array $menu_buttons
 	 */
-    public static function loadMenu(&$menu_buttons)
+	public static function loadMenu(&$menu_buttons)
 	{
 		global $user_info, $scripturl, $modSettings;
 
