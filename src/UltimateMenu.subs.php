@@ -238,7 +238,7 @@ class UltimateMenu
 	/**
 	 * Loads all UM items from the db
 	 *
-	 * @return mixed[]
+	 * @return string[]
 	 */
 	function total_getMenu()
 	{
@@ -263,7 +263,7 @@ class UltimateMenu
 	 * @param int    $items_per_page
 	 * @param string $sort
 	 *
-	 * @return mixed[]
+	 * @return string[]
 	 */
 	function list_getMenu($start, $items_per_page, $sort)
 	{
@@ -290,7 +290,8 @@ class UltimateMenu
 
 	/**
 	 * Createlist callback to determine the number of um items
-	 * @return type
+	 * 
+	 * @return int
 	 */
 	function list_getNumButtons()
 	{
@@ -503,13 +504,17 @@ class UltimateMenu
 	 * Fetches the common name of an item given the slug
 	 * Needed when we have nested um items
 	 *
-	 * @param string $slug
-	 *
 	 * @return string
 	 */
 	function getButtonNames()
 	{
 		global $context;
+
+		// It's expected to be present.
+		$context['user']['unread_messages'] = 0;
+
+		// Load SMF's default menu context
+		setupMenuContext();
 
 		$button_names = [];
 		foreach ($context['menu_buttons'] as $button_index => $button_data)
