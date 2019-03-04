@@ -271,8 +271,8 @@ class UltimateMenu
 			'',
 			'
 			SELECT
-				id_button, name, slug, target, type, position, link, status, permissions, parent
-			FROM {db_prefix}um_menu AS men
+				id_button, name, target, type, position, link, status, parent
+			FROM {db_prefix}um_menu
 			ORDER BY {raw:sort}
 			LIMIT {int:offset}, {int:limit}',
 			array(
@@ -435,7 +435,6 @@ class UltimateMenu
 				'insert',
 				'{db_prefix}um_menu',
 				array(
-					'slug' => 'string',
 					'name' => 'string',
 					'type' => 'string',
 					'target' => 'string',
@@ -446,7 +445,6 @@ class UltimateMenu
 					'parent' => 'string',
 				),
 				array(
-					md5($menu_entry['name']) . '-' . time(),
 					$menu_entry['name'],
 					$menu_entry['type'],
 					$menu_entry['target'],
@@ -474,7 +472,7 @@ class UltimateMenu
 			'',
 			'
 			SELECT
-				name, slug, target, type, position, link, status, permissions, parent
+				name, target, type, position, link, status, permissions, parent
 			FROM {db_prefix}um_menu
 			WHERE id_button = {int:button}
 			LIMIT 1',

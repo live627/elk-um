@@ -142,8 +142,8 @@ class Ultimate_Menu_Controller extends Action_Controller
 						'db' => 'name',
 					),
 					'sort' => array(
-						'default' => 'men.name',
-						'reverse' => 'men.name DESC',
+						'default' => 'name',
+						'reverse' => 'name DESC',
 					),
 				),
 				'type' => array(
@@ -157,8 +157,8 @@ class Ultimate_Menu_Controller extends Action_Controller
 						},
 					),
 					'sort' => array(
-						'default' => 'men.type',
-						'reverse' => 'men.type DESC',
+						'default' => 'type',
+						'reverse' => 'type DESC',
 					),
 				),
 				'position' => array(
@@ -178,8 +178,8 @@ class Ultimate_Menu_Controller extends Action_Controller
 						},
 					),
 					'sort' => array(
-						'default' => 'men.position',
-						'reverse' => 'men.position DESC',
+						'default' => 'position',
+						'reverse' => 'position DESC',
 					),
 				),
 				'link' => array(
@@ -190,8 +190,8 @@ class Ultimate_Menu_Controller extends Action_Controller
 						'db_htmlsafe' => 'link',
 					),
 					'sort' => array(
-						'default' => 'men.link',
-						'reverse' => 'men.link DESC',
+						'default' => 'link',
+						'reverse' => 'link DESC',
 					),
 				),
 				'status' => array(
@@ -211,8 +211,8 @@ class Ultimate_Menu_Controller extends Action_Controller
 						'class' => 'centertext',
 					),
 					'sort' => array(
-						'default' => 'men.status',
-						'reverse' => 'men.status DESC',
+						'default' => 'status',
+						'reverse' => '  status DESC',
 					),
 				),
 				'actions' => array(
